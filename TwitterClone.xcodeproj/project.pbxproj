@@ -19,6 +19,11 @@
 		0064865427F5967E000EE8FF /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0064865327F5967E000EE8FF /* MessagesView.swift */; };
 		0064865827F59733000EE8FF /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0064865727F59733000EE8FF /* ProfileView.swift */; };
 		0064865A27F59C90000EE8FF /* TweetFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0064865927F59C90000EE8FF /* TweetFilterViewModel.swift */; };
+		00702F5D27F5A1730000AE78 /* UserRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00702F5C27F5A1730000AE78 /* UserRowView.swift */; };
+		00702F6227F5A3F40000AE78 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00702F6127F5A3F40000AE78 /* SideMenuView.swift */; };
+		00702F6427F5A4000000AE78 /* SideMenuRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00702F6327F5A4000000AE78 /* SideMenuRowView.swift */; };
+		00702F6627F5A4140000AE78 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00702F6527F5A4140000AE78 /* SideMenuViewModel.swift */; };
+		00702F6827F5A58A0000AE78 /* UserStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00702F6727F5A58A0000AE78 /* UserStatsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +40,11 @@
 		0064865327F5967E000EE8FF /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		0064865727F59733000EE8FF /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		0064865927F59C90000EE8FF /* TweetFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetFilterViewModel.swift; sourceTree = "<group>"; };
+		00702F5C27F5A1730000AE78 /* UserRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRowView.swift; sourceTree = "<group>"; };
+		00702F6127F5A3F40000AE78 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
+		00702F6327F5A4000000AE78 /* SideMenuRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRowView.swift; sourceTree = "<group>"; };
+		00702F6527F5A4140000AE78 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
+		00702F6727F5A58A0000AE78 /* UserStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +128,7 @@
 				0064864D27F59635000EE8FF /* Messages */,
 				0064864C27F59630000EE8FF /* Notifications */,
 				0064864E27F5963C000EE8FF /* Profile */,
+				00702F5E27F5A3D90000AE78 /* SideMenu */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -125,6 +136,7 @@
 		0064863F27F590A1000EE8FF /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				00702F5B27F5A1660000AE78 /* Users */,
 				0064864027F590A5000EE8FF /* Tweets */,
 			);
 			path = Components;
@@ -173,7 +185,8 @@
 		0064864B27F5961E000EE8FF /* Explore */ = {
 			isa = PBXGroup;
 			children = (
-				0064864F27F5965A000EE8FF /* ExploreView.swift */,
+				00702F5A27F5A1510000AE78 /* ViewModels */,
+				00702F5927F5A14F0000AE78 /* Views */,
 			);
 			path = Explore;
 			sourceTree = "<group>";
@@ -215,6 +228,56 @@
 			isa = PBXGroup;
 			children = (
 				0064865727F59733000EE8FF /* ProfileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		00702F5927F5A14F0000AE78 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0064864F27F5965A000EE8FF /* ExploreView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		00702F5A27F5A1510000AE78 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		00702F5B27F5A1660000AE78 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				00702F5C27F5A1730000AE78 /* UserRowView.swift */,
+				00702F6727F5A58A0000AE78 /* UserStatsView.swift */,
+			);
+			path = Users;
+			sourceTree = "<group>";
+		};
+		00702F5E27F5A3D90000AE78 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				00702F5F27F5A3E40000AE78 /* ViewModels */,
+				00702F6027F5A3E70000AE78 /* Views */,
+			);
+			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		00702F5F27F5A3E40000AE78 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				00702F6527F5A4140000AE78 /* SideMenuViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		00702F6027F5A3E70000AE78 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				00702F6127F5A3F40000AE78 /* SideMenuView.swift */,
+				00702F6327F5A4000000AE78 /* SideMenuRowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -292,13 +355,18 @@
 				0064865427F5967E000EE8FF /* MessagesView.swift in Sources */,
 				0064865827F59733000EE8FF /* ProfileView.swift in Sources */,
 				0064864727F5918D000EE8FF /* FeedView.swift in Sources */,
+				00702F6427F5A4000000AE78 /* SideMenuRowView.swift in Sources */,
 				0064863027F59081000EE8FF /* ContentView.swift in Sources */,
 				0064865A27F59C90000EE8FF /* TweetFilterViewModel.swift in Sources */,
 				0064862E27F59081000EE8FF /* TwitterCloneApp.swift in Sources */,
+				00702F6227F5A3F40000AE78 /* SideMenuView.swift in Sources */,
 				0064864527F590FD000EE8FF /* TweetRowView.swift in Sources */,
 				0064865027F5965A000EE8FF /* ExploreView.swift in Sources */,
+				00702F6627F5A4140000AE78 /* SideMenuViewModel.swift in Sources */,
+				00702F5D27F5A1730000AE78 /* UserRowView.swift in Sources */,
 				0064864A27F595A6000EE8FF /* MainTabView.swift in Sources */,
 				0064865227F59670000EE8FF /* NotificationsView.swift in Sources */,
+				00702F6827F5A58A0000AE78 /* UserStatsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
