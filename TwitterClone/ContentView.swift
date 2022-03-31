@@ -13,22 +13,8 @@ struct ContentView: View {
   
   var body: some View {
     ZStack(alignment: .topLeading) {
-      NavigationView {
-        MainTabView()
-          .navigationTitle("Home")
-          .navigationBarTitleDisplayMode(.inline)
-          .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-              Circle()
-                .frame(width: 32, height: 32)
-                .onTapGesture {
-                  withAnimation(.easeInOut) {
-                    showSideMenu.toggle()
-                  }
-                }
-            }
-          }
-      }
+      
+      MainTabView()
       
       if showSideMenu {
         Color.black
@@ -44,6 +30,23 @@ struct ContentView: View {
       SideMenuView()
         .frame(width: 300)
         .offset(x: showSideMenu ? 0 : -300)
+    }
+    .navigationTitle("Home")
+    .navigationBarHidden(showSideMenu)
+    .navigationBarTitleDisplayMode(.inline)
+    .toolbar {
+      ToolbarItem(placement: .navigationBarLeading) {
+        Circle()
+          .frame(width: 32, height: 32)
+          .onTapGesture {
+            withAnimation(.easeInOut) {
+              showSideMenu.toggle()
+            }
+          }
+      }
+    }
+    .onAppear {
+      showSideMenu = false
     }
   }
 }

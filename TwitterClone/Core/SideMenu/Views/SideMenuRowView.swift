@@ -8,13 +8,28 @@
 import SwiftUI
 
 struct SideMenuRowView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  
+  let option: SideMenuViewModel
+  
+  var body: some View {
+    HStack(spacing: 16) {
+      Image(systemName: option.imageName)
+        .font(.headline)
+        .foregroundColor(.secondary)
+      
+      Text(option.title)
+        .foregroundColor(.primary)
+        .font(.subheadline)
+      
+      Spacer()
     }
+    .frame(height: 40)
+    .padding(.horizontal)
+  }
 }
 
 struct SideMenuRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        SideMenuRowView()
-    }
+  static var previews: some View {
+    SideMenuRowView(option: .profile)
+  }
 }

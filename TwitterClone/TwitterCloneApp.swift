@@ -11,9 +11,9 @@ import SwiftUI
 struct TwitterCloneApp: App {
   var body: some Scene {
     WindowGroup {
-//      NavigationView {
+      NavigationView {
         ContentView()
-//      }
+      }
     }
   }
 }

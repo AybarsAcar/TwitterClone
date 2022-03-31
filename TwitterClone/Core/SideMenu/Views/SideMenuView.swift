@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SideMenuView: View {
   var body: some View {
+    
     VStack(alignment: .leading, spacing: 32) {
       VStack(alignment: .leading) {
         
@@ -31,18 +32,23 @@ struct SideMenuView: View {
       
       ForEach(SideMenuViewModel.allCases, id: \.self) { item in
         
-        HStack(spacing: 16) {
-          Image(systemName: item.imageName)
-            .font(.headline)
-            .foregroundColor(.secondary)
-          
-          Text(item.title)
-            .font(.subheadline)
-          
-          Spacer()
+        if item == .profile {
+          NavigationLink {
+            ProfileView()
+          } label: {
+            SideMenuRowView(option: item)
+          }
         }
-        .frame(height: 40)
-        .padding(.horizontal)
+        else if item == .logout {
+          SideMenuRowView(option: item)
+            .onTapGesture {
+              print("Logout")
+            }
+        }
+        else {
+          SideMenuRowView(option: item)
+        }
+        
       }
       
       Spacer()
