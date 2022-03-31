@@ -8,15 +8,24 @@
 import SwiftUI
 
 struct ProfileView: View {
+  
+  @State private var selectedFilter: TweetFilterViewModel = .tweets
+  
+  @Namespace private var animation
+  
   var body: some View {
     VStack(alignment: .leading) {
-
+      
       headerView
       
       actionButtons
       
       profileInfo
       
+      filterBar
+      
+      tweetsList
+            
       Spacer()
     }
   }
@@ -39,11 +48,11 @@ extension ProfileView {
             .frame(width: 20, height: 16)
             .foregroundColor(.white)
         }
-
+        
         
         Circle()
           .frame(width: 72, height: 72)
-        .offset(x: 16, y: 24)
+          .offset(x: 16, y: 24)
       }
     }
     .frame(height: 96)
@@ -110,7 +119,7 @@ extension ProfileView {
       
       HStack {
         HStack(spacing: 4) {
-         Text("807")
+          Text("807")
             .font(.subheadline.bold())
           
           Text("Flowing")
@@ -119,7 +128,7 @@ extension ProfileView {
         }
         
         HStack(spacing: 4) {
-         Text("6.9M")
+          Text("6.9M")
             .font(.subheadline.bold())
           
           Text("Followers")
@@ -130,6 +139,52 @@ extension ProfileView {
       .padding(.vertical)
     }
     .padding(.horizontal)
+  }
+  
+  private var filterBar: some View {
+    HStack(spacing: 0) {
+      ForEach(TweetFilterViewModel.allCases, id: \.self) { item in
+        VStack {
+          Text(item.title)
+            .font(.subheadline)
+            .fontWeight(selectedFilter == item ? .semibold : .regular)
+            .foregroundColor(selectedFilter == item ? .primary : .secondary)
+            .frame(maxWidth: .infinity)
+            .onTapGesture {
+              withAnimation(.easeInOut) {
+                selectedFilter = item
+              }
+            }
+          
+          if selectedFilter == item {
+            Capsule()
+              .frame(height: 3)
+              .foregroundColor(.blue)
+              .matchedGeometryEffect(id: "filter", in: animation)
+          }
+          else {
+            Capsule()
+              .frame(height: 3)
+              .foregroundColor(.blue)
+              .opacity(0)
+          }
+        }
+      }
+    }
+    .overlay(
+      Divider()
+        .offset(y: 16)
+    )
+  }
+  
+  private var tweetsList: some View {
+    ScrollView {
+      LazyVStack {
+        ForEach(0..<10) { item in
+          TweetRowView()
+        }
+      }
+    }
   }
 }
 

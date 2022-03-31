@@ -18,6 +18,7 @@
 		0064865227F59670000EE8FF /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0064865127F59670000EE8FF /* NotificationsView.swift */; };
 		0064865427F5967E000EE8FF /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0064865327F5967E000EE8FF /* MessagesView.swift */; };
 		0064865827F59733000EE8FF /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0064865727F59733000EE8FF /* ProfileView.swift */; };
+		0064865A27F59C90000EE8FF /* TweetFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0064865927F59C90000EE8FF /* TweetFilterViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		0064865127F59670000EE8FF /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		0064865327F5967E000EE8FF /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		0064865727F59733000EE8FF /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		0064865927F59C90000EE8FF /* TweetFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetFilterViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 		0064865527F59721000EE8FF /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				0064865927F59C90000EE8FF /* TweetFilterViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				0064865827F59733000EE8FF /* ProfileView.swift in Sources */,
 				0064864727F5918D000EE8FF /* FeedView.swift in Sources */,
 				0064863027F59081000EE8FF /* ContentView.swift in Sources */,
+				0064865A27F59C90000EE8FF /* TweetFilterViewModel.swift in Sources */,
 				0064862E27F59081000EE8FF /* TwitterCloneApp.swift in Sources */,
 				0064864527F590FD000EE8FF /* TweetRowView.swift in Sources */,
 				0064865027F5965A000EE8FF /* ExploreView.swift in Sources */,
