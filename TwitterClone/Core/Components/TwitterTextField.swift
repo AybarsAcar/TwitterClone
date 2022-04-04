@@ -12,11 +12,13 @@ struct TwitterTextField: View {
   let icon: String
   let placeholder: String
   @Binding var text: String
+  let isSecure: Bool
   
-  init(_ placeholder: String, text: Binding<String>, withIcon icon: String) {
+  init(_ placeholder: String, text: Binding<String>, withIcon icon: String, isSecure: Bool = false) {
     self.placeholder = placeholder
     self._text = text
     self.icon = icon
+    self.isSecure = isSecure
   }
   
   var body: some View {
@@ -28,7 +30,11 @@ struct TwitterTextField: View {
           .frame(width: 20, height: 20)
           .foregroundColor(Color(.darkGray))
         
-        TextField(placeholder, text: $text)
+        if isSecure {
+          SecureField(placeholder, text: $text)
+        } else {
+          TextField(placeholder, text: $text)
+        }
       }
       
       Divider()

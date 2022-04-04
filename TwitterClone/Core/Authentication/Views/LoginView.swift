@@ -9,6 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
   
+  @EnvironmentObject private var authVM: AuthViewModel
+  
   @State private var email = ""
   @State private var password = ""
   
@@ -53,8 +55,10 @@ extension LoginView {
     
     VStack(spacing: 40) {
       TwitterTextField("Email", text: $email, withIcon: "envelope")
-      
-      TwitterTextField("Password", text: $password, withIcon: "lock")
+        .disableAutocorrection(true)
+        .textInputAutocapitalization(.never)
+
+      TwitterTextField("Password", text: $password, withIcon: "lock", isSecure: true)
 
     }
     .padding(.horizontal, 32)
@@ -81,7 +85,7 @@ extension LoginView {
   
   private var signInButton: some View {
     Button {
-      
+      authVM.login(withEmail: email, password: password)
     } label: {
       Text("Sign in")
         .font(.headline)
@@ -100,5 +104,6 @@ extension LoginView {
 struct LoginView_Previews: PreviewProvider {
   static var previews: some View {
     LoginView()
+      .environmentObject(AuthViewModel())
   }
 }

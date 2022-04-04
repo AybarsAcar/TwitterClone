@@ -11,15 +11,19 @@ import Firebase
 @main
 struct TwitterCloneApp: App {
   
+  @StateObject private var authViewModel: AuthViewModel
+  
   init() {
     FirebaseApp.configure()
+    self._authViewModel = StateObject(wrappedValue: AuthViewModel())
   }
   
   var body: some Scene {
     WindowGroup {
       NavigationView {
-        LoginView()
+        ContentView()
       }
+      .environmentObject(authViewModel)
     }
   }
 }

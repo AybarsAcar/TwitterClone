@@ -9,9 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
   
+  @EnvironmentObject private var viewModel: AuthViewModel
+  
   @State private var showSideMenu = false
   
   var body: some View {
+    Group {
+      if viewModel.userSession == nil {
+        LoginView()
+      }
+      else {
+        mainView
+      }
+    }
+  }
+}
+
+// MARK: - Components
+extension ContentView {
+  
+  private var mainView: some View {
     ZStack(alignment: .topLeading) {
       
       MainTabView()
@@ -55,6 +72,7 @@ struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
       ContentView()
+        .environmentObject(AuthViewModel())
     }
   }
 }

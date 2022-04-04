@@ -11,6 +11,7 @@
 		003CF45727FAFCF400D7CDF7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 003CF45627FAFCF400D7CDF7 /* FirebaseAuth */; };
 		003CF45927FAFCF400D7CDF7 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 003CF45827FAFCF400D7CDF7 /* FirebaseFirestoreSwift-Beta */; };
 		003CF45B27FAFCF400D7CDF7 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 003CF45A27FAFCF400D7CDF7 /* FirebaseStorage */; };
+		003CF45D27FAFE8300D7CDF7 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003CF45C27FAFE8300D7CDF7 /* AuthViewModel.swift */; };
 		0064862E27F59081000EE8FF /* TwitterCloneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0064862D27F59081000EE8FF /* TwitterCloneApp.swift */; };
 		0064863027F59081000EE8FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0064862F27F59081000EE8FF /* ContentView.swift */; };
 		0064863227F59083000EE8FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0064863127F59083000EE8FF /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		003CF45327FAF78F00D7CDF7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		003CF45C27FAFE8300D7CDF7 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		0064862A27F59081000EE8FF /* TwitterClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0064862D27F59081000EE8FF /* TwitterCloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCloneApp.swift; sourceTree = "<group>"; };
 		0064862F27F59081000EE8FF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 		00BBADDA27F6F0F3007EF5C1 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				003CF45C27FAFE8300D7CDF7 /* AuthViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				00BBADDF27F6F10F007EF5C1 /* RegistrationView.swift in Sources */,
 				00BBADD627F6ED90007EF5C1 /* NewTweetView.swift in Sources */,
 				00BBADE127F6F28B007EF5C1 /* RoundedShape.swift in Sources */,
+				003CF45D27FAFE8300D7CDF7 /* AuthViewModel.swift in Sources */,
 				00702F5D27F5A1730000AE78 /* UserRowView.swift in Sources */,
 				0064864A27F595A6000EE8FF /* MainTabView.swift in Sources */,
 				0064865227F59670000EE8FF /* NotificationsView.swift in Sources */,

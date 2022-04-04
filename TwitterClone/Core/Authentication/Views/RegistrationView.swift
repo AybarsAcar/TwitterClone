@@ -11,6 +11,8 @@ struct RegistrationView: View {
   
   @Environment(\.dismiss) private var dismiss
   
+  @EnvironmentObject private var authVM: AuthViewModel
+  
   @State private var email = ""
   @State private var password = ""
   @State private var username = ""
@@ -32,15 +34,19 @@ struct RegistrationView: View {
   }
 }
 
+// MARK: - Components
 extension RegistrationView {
   
   private var textFields: some View {
     
     VStack(spacing: 40) {
       TwitterTextField("Email", text: $email, withIcon: "envelope")
+        .disableAutocorrection(true)
+        .textInputAutocapitalization(.never)
+      
       TwitterTextField("Username", text: $username, withIcon: "person")
       TwitterTextField("Full name", text: $fullName, withIcon: "person")
-      TwitterTextField("Password", text: $password, withIcon: "lock")
+      TwitterTextField("Password", text: $password, withIcon: "lock", isSecure: true)
       
     }
     .padding(.horizontal, 32)
@@ -49,7 +55,7 @@ extension RegistrationView {
   
   private var signUpButton: some View {
     Button {
-      
+      authVM.register(withEmail: email, password: password, fullName: fullName, username: username)
     } label: {
       Text("Sign up")
         .font(.headline)
@@ -85,5 +91,6 @@ extension RegistrationView {
 struct RegistrationView_Previews: PreviewProvider {
   static var previews: some View {
     RegistrationView()
+      .environmentObject(AuthViewModel())
   }
 }
