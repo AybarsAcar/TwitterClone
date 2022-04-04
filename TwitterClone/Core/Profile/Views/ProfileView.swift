@@ -27,7 +27,7 @@ struct ProfileView: View {
       filterBar
       
       tweetsList
-            
+      
       Spacer()
     }
     .navigationBarHidden(true)
@@ -120,8 +120,8 @@ extension ProfileView {
       .font(.caption)
       .foregroundColor(.secondary)
       
-     UserStatsView()
-      .padding(.vertical)
+      UserStatsView()
+        .padding(.vertical)
     }
     .padding(.horizontal)
   }
