@@ -11,6 +11,7 @@ import Firebase
 final class AuthViewModel: ObservableObject {
   
   @Published private(set) var userSession: FirebaseAuth.User?
+  @Published var didAuthenticateUser: Bool = false
   
   init() {
     self.userSession = Auth.auth().currentUser
@@ -33,7 +34,7 @@ final class AuthViewModel: ObservableObject {
   
   func register(withEmail email: String, password: String, fullName: String, username: String) {
     
-    Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+    Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
       guard let authResult = authResult, error == nil else {
         if let error = error {
           print("Failed to register with error \(error)")
@@ -42,7 +43,6 @@ final class AuthViewModel: ObservableObject {
       }
       
       let user = authResult.user
-      self.userSession = user
       
       let data = [
         "email": email,
@@ -58,7 +58,7 @@ final class AuthViewModel: ObservableObject {
             print("error uploading user data")
             return
           }
-          print("uploaded user data")
+          self?.didAuthenticateUser = true
         }
     }
   }

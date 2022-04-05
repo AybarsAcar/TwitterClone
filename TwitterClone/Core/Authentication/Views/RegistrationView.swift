@@ -20,6 +20,10 @@ struct RegistrationView: View {
   
   var body: some View {
     VStack {
+      
+      // used to navigate to add a photo view when the user registers to the app
+      NavigationLink(destination: ProfilePhotoSelectorView(), isActive: $authVM.didAuthenticateUser) { }
+      
       AuthenticationHeaderView(title: "Get started.", subtitle: "Create your account")
       
       textFields
