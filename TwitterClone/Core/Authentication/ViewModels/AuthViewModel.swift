@@ -7,11 +7,14 @@
 
 import Foundation
 import Firebase
+import UIKit
 
 final class AuthViewModel: ObservableObject {
   
   @Published private(set) var userSession: FirebaseAuth.User?
   @Published var didAuthenticateUser: Bool = false
+  
+  private var temporaryUserSession: FirebaseAuth.User?
   
   init() {
     self.userSession = Auth.auth().currentUser
@@ -43,6 +46,7 @@ final class AuthViewModel: ObservableObject {
       }
       
       let user = authResult.user
+      self?.temporaryUserSession = user
       
       let data = [
         "email": email,
@@ -70,6 +74,24 @@ final class AuthViewModel: ObservableObject {
       try Auth.auth().signOut()
     } catch {
       print("error signing the user out")
+    }
+  }
+  
+  func uploadProfileImage(_ image: UIImage) {
+    guard let uid = temporaryUserSession?.uid else { return }
+    
+    ImageManager.shared.upload(image: image) { [weak self] result in
+      switch result {
+      case .success(let urlString):
+        Firestore.firestore().collection("users")
+          .document(uid)
+          .updateData(["profileImageUrl": urlString]) { _ in
+            self?.userSession = self?.temporaryUserSession
+          }
+        
+      case .failure(let error):
+        print(error)
+      }
     }
   }
 }

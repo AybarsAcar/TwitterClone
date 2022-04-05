@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProfilePhotoSelectorView: View {
   
+  @EnvironmentObject private var authVM: AuthViewModel
+  
   @State private var showImagePicker = false
   @State private var image: UIImage?
   
@@ -43,9 +45,9 @@ struct ProfilePhotoSelectorView: View {
         ImagePicker(image: $image)
       }
       
-      if image != nil {
+      if let image = image {
         Button {
-          
+          authVM.uploadProfileImage(image)
         } label: {
           Text("Continue")
             .font(.headline)
@@ -69,6 +71,7 @@ struct ProfilePhotoSelectorView: View {
 struct PhotoSelectorView_Previews: PreviewProvider {
   static var previews: some View {
     ProfilePhotoSelectorView()
+      .environmentObject(AuthViewModel())
   }
 }
 
