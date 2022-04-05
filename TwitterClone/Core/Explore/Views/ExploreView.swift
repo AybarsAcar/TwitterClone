@@ -14,7 +14,7 @@ struct ExploreView: View {
       ScrollView {
         LazyVStack {
           ForEach(0 ..< 20) { item in
-            NavigationLink(destination: ProfileView()) {
+            NavigationLink(destination: Text("Some Profile View")) {
               UserRowView()
             }
           }

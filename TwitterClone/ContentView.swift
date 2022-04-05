@@ -53,13 +53,23 @@ extension ContentView {
     .navigationBarTitleDisplayMode(.inline)
     .toolbar {
       ToolbarItem(placement: .navigationBarLeading) {
-        Circle()
-          .frame(width: 32, height: 32)
-          .onTapGesture {
-            withAnimation(.easeInOut) {
-              showSideMenu.toggle()
-            }
+        if let user = viewModel.currentUser {
+          AsyncImage(url: URL(string: user.profileImageURL)) { image in
+            image
+              .resizable()
+              .scaledToFill()
+              .frame(width: 32, height: 32)
+              .clipShape(Circle())
+              .onTapGesture {
+                withAnimation(.easeInOut) {
+                  showSideMenu.toggle()
+                }
+              }
+          } placeholder: {
+            ProgressView()
+              .frame(width: 32, height: 32)
           }
+        }
       }
     }
     .onAppear {

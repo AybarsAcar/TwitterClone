@@ -15,6 +15,12 @@ struct ProfileView: View {
   
   @Namespace private var animation
   
+  private let user: User
+  
+  init(user: User) {
+    self.user = user
+  }
+  
   var body: some View {
     VStack(alignment: .leading) {
       
@@ -53,9 +59,21 @@ extension ProfileView {
         }
         
         
+
         Circle()
           .frame(width: 72, height: 72)
+          .overlay {
+            AsyncImage(url: URL(string: user.profileImageURL)) { image in
+              image
+                .resizable()
+                .scaledToFill()
+                .clipShape(Circle())
+            } placeholder: {
+              ProgressView()
+            }
+          }
           .offset(x: 16, y: 24)
+
       }
     }
     .frame(height: 96)
@@ -90,14 +108,14 @@ extension ProfileView {
   private var profileInfo: some View {
     VStack(alignment: .leading, spacing: 4) {
       HStack {
-        Text("Heath Ledger")
+        Text(user.fullname)
           .font(.title2.bold())
         
         Image(systemName: "checkmark.seal.fill")
           .foregroundColor(.blue)
       }
       
-      Text("@joker")
+      Text("@\(user.username)")
         .font(.subheadline)
         .foregroundColor(.secondary)
       
@@ -175,6 +193,6 @@ extension ProfileView {
 
 struct ProfileView_Previews: PreviewProvider {
   static var previews: some View {
-    ProfileView()
+    ProfileView(user: User.dummyUser)
   }
 }

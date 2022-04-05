@@ -8,16 +8,24 @@
 import Foundation
 import Firebase
 import UIKit
+import Combine
 
 final class AuthViewModel: ObservableObject {
   
   @Published private(set) var userSession: FirebaseAuth.User?
   @Published var didAuthenticateUser: Bool = false
   
+  // our user object that we fetch
+  @Published var currentUser: User?
+  
   private var temporaryUserSession: FirebaseAuth.User?
+  private let userService: UserService
   
   init() {
     self.userSession = Auth.auth().currentUser
+    self.userService = UserService()
+    
+    fetchUser()
   }
   
   func login(withEmail email: String, password: String) {
@@ -92,6 +100,13 @@ final class AuthViewModel: ObservableObject {
       case .failure(let error):
         print(error)
       }
+    }
+  }
+  
+  func fetchUser() {
+    guard let uid = userSession?.uid else { return }
+    userService.fetchUser(withUid: uid) { [weak self] user in
+      self?.currentUser = user
     }
   }
 }
