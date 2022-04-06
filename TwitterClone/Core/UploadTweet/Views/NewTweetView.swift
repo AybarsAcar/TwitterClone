@@ -11,6 +11,10 @@ struct NewTweetView: View {
   
   @Environment(\.dismiss) private var dismiss
   
+  @EnvironmentObject private var authVM: AuthViewModel
+  
+  @ObservedObject private var viewModel = UploadTweetViewModel()
+  
   @State private var caption = ""
   
   var body: some View {
@@ -22,11 +26,11 @@ struct NewTweetView: View {
           Text("Cancel")
             .foregroundColor(.blue)
         }
-
+        
         Spacer()
         
         Button {
-          
+          viewModel.uploadTweet(withCaption: caption)
         } label: {
           Text("Tweet")
             .fontWeight(.bold)
@@ -40,12 +44,30 @@ struct NewTweetView: View {
       .padding()
       
       HStack(alignment: .top) {
-        Circle()
-          .frame(width: 64, height: 64)
+        
+        if let user = authVM.currentUser {
+          Circle()
+            .frame(width: 64, height: 64)
+            .overlay {
+              AsyncImage(url: URL(string: user.profileImageURL)) { image in
+                image
+                  .resizable()
+                  .scaledToFill()
+                  .clipShape(Circle())
+              } placeholder: {
+                ProgressView()
+              }
+            }
+        }
         
         TextArea("What's happening?", text: $caption)
       }
       .padding()
+    }
+    .onReceive(viewModel.$didUploadTweet) { didUploadTweetSuccessfully in
+      if didUploadTweetSuccessfully {
+        dismiss()
+      }
     }
   }
 }

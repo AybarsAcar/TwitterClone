@@ -184,7 +184,7 @@ extension ProfileView {
     ScrollView {
       LazyVStack {
         ForEach(0..<10) { item in
-          TweetRowView()
+          TweetRowView(tweet: Tweet.dummyTweet)
         }
       }
     }
