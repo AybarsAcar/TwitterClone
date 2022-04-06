@@ -40,6 +40,7 @@ struct FeedView: View {
       }
 
     }
+    .navigationTitle("Home")
   }
 }
 

@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct ExploreView: View {
+  
+  @ObservedObject private var exploreVM = ExploreViewModel()
+  
   var body: some View {
     VStack {
       
+      SearchBar("Search...", text: $exploreVM.searchText)
+        .padding()
+      
       ScrollView {
         LazyVStack {
-          ForEach(0 ..< 20) { item in
-            NavigationLink(destination: Text("Some Profile View")) {
-              UserRowView()
+          ForEach(exploreVM.searchableUsers) { user in
+            NavigationLink(destination: ProfileView(user: user)) {
+              UserRowView(user: user)
             }
           }
         }

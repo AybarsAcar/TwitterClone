@@ -30,7 +30,7 @@ final class AuthViewModel: ObservableObject {
   
   func login(withEmail email: String, password: String) {
     
-    Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+    Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
       guard let authResult = authResult, error == nil else {
         if let error = error {
           print("Failed to sign in with error \(error)")
@@ -39,7 +39,8 @@ final class AuthViewModel: ObservableObject {
       }
       
       let user = authResult.user
-      self.userSession = user
+      self?.userSession = user
+      self?.fetchUser()
     }
   }
   
@@ -95,6 +96,7 @@ final class AuthViewModel: ObservableObject {
           .document(uid)
           .updateData(["profileImageUrl": urlString]) { _ in
             self?.userSession = self?.temporaryUserSession
+            self?.fetchUser()
           }
         
       case .failure(let error):
