@@ -35,16 +35,37 @@ final class TweetService {
   }
   
   func fetchTweets(completion: @escaping (_ tweets: [Tweet]) -> Void) {
-    Firestore.firestore().collection("tweets").getDocuments { snapshot, error in
-      guard let documents = snapshot?.documents, error == nil else {
-        return
+    Firestore.firestore().collection("tweets")
+      .order(by: "timestamp", descending: true) // latest tweet at the top
+      .getDocuments { snapshot, error in
+        guard let documents = snapshot?.documents, error == nil else {
+          return
+        }
+        
+        let tweets = documents.compactMap { document in
+          try? document.data(as: Tweet.self)
+        }
+        
+        completion(tweets)
       }
-      
-      let tweets = documents.compactMap { document in
-        try? document.data(as: Tweet.self)
+  }
+  
+  /// fetches the tweets for a user with a given uid
+  func fetchTweets(forUid uid: String, completion: @escaping (_ tweets: [Tweet]) -> Void) {
+    Firestore.firestore().collection("tweets")
+      .whereField("uid", isEqualTo: uid) // get the tweets for a user with the given uid
+      .getDocuments { snapshot, error in
+        guard let documents = snapshot?.documents, error == nil else {
+          return
+        }
+        
+        let tweets = documents
+          .compactMap { document in
+            try? document.data(as: Tweet.self)
+          }
+          .sorted(by: { $0.timestamp.dateValue() > $1.timestamp.dateValue() })
+        
+        completion(tweets)
       }
-      
-      completion(tweets)
-    }
   }
 }

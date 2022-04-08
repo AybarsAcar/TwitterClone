@@ -30,6 +30,7 @@ struct NewTweetView: View {
         Spacer()
         
         Button {
+          guard !caption.isEmpty else { return }
           viewModel.uploadTweet(withCaption: caption)
         } label: {
           Text("Tweet")

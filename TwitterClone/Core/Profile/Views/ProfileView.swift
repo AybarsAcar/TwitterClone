@@ -11,14 +11,14 @@ struct ProfileView: View {
   
   @Environment(\.dismiss) private var dismiss
   
+  @ObservedObject private var viewModel: ProfileViewModel
+  
   @State private var selectedFilter: TweetFilterViewModel = .tweets
   
   @Namespace private var animation
   
-  private let user: User
-  
   init(user: User) {
-    self.user = user
+    self.viewModel = ProfileViewModel(user: user)
   }
   
   var body: some View {
@@ -58,12 +58,10 @@ extension ProfileView {
             .foregroundColor(.white)
         }
         
-        
-
         Circle()
           .frame(width: 72, height: 72)
           .overlay {
-            AsyncImage(url: URL(string: user.profileImageURL)) { image in
+            AsyncImage(url: URL(string: viewModel.user.profileImageURL)) { image in
               image
                 .resizable()
                 .scaledToFill()
@@ -108,14 +106,14 @@ extension ProfileView {
   private var profileInfo: some View {
     VStack(alignment: .leading, spacing: 4) {
       HStack {
-        Text(user.fullname)
+        Text(viewModel.user.fullname)
           .font(.title2.bold())
         
         Image(systemName: "checkmark.seal.fill")
           .foregroundColor(.blue)
       }
       
-      Text("@\(user.username)")
+      Text("@\(viewModel.user.username)")
         .font(.subheadline)
         .foregroundColor(.secondary)
       
@@ -183,8 +181,8 @@ extension ProfileView {
   private var tweetsList: some View {
     ScrollView {
       LazyVStack {
-        ForEach(0..<10) { item in
-          TweetRowView(tweet: Tweet.dummyTweet)
+        ForEach(viewModel.tweets) { tweet in
+          TweetRowView(tweet: tweet)
         }
       }
     }
