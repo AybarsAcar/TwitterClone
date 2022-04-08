@@ -69,6 +69,31 @@ final class TweetService {
       }
   }
   
+  func checkIfUserLikedTweet(_ tweet: Tweet, completion: @escaping (_ didLike: Bool) -> Void) {
+    guard let uid = Auth.auth().currentUser?.uid,
+          let tweetID = tweet.id else {
+      completion(false)
+      return
+    }
+    
+    Firestore.firestore().collection("users")
+      .document(uid)
+      .collection("user-likes")
+      .document(tweetID)
+      .getDocument { snapshot, error in
+        guard let snapshot = snapshot, error == nil else {
+          completion(false)
+          return
+        }
+        
+        completion(snapshot.exists)
+      }
+  }
+}
+
+// MARK: - Likes
+extension TweetService {
+  
   /// liked tweet IDs will be stored in the logged in user as a sub-collection
   /// update the like count on the tweet
   func likeTweet(_ tweet: Tweet, completion: @escaping (_ success: Bool) -> Void) {
@@ -129,24 +154,30 @@ final class TweetService {
     }
   }
   
-  func checkIfUserLikedTweet(_ tweet: Tweet, completion: @escaping (_ didLike: Bool) -> Void) {
-    guard let uid = Auth.auth().currentUser?.uid,
-          let tweetID = tweet.id else {
-      completion(false)
-      return
-    }
+  /// grab the tweet ids from the user collection
+  /// then grab the tweets with the given tweetIDs
+  func fetchLikedTweets(forUid uid: String, completion: @escaping (_ tweets: [Tweet]) -> Void) {
     
-    Firestore.firestore().collection("users")
-      .document(uid)
-      .collection("user-likes")
-      .document(tweetID)
-      .getDocument { snapshot, error in
-        guard let snapshot = snapshot, error == nil else {
-          completion(false)
-          return
-        }
-        
-        completion(snapshot.exists)
+    var tweets = [Tweet]()
+    
+    Firestore.firestore().collection("users").document(uid).collection("user-likes").getDocuments { snapshot, error in
+      guard let documents = snapshot?.documents, error == nil else {
+        return
       }
+      
+      documents.forEach { document in
+        let tweetID = document.documentID
+        
+        // fetch the tweet
+        Firestore.firestore().collection("tweets").document(tweetID).getDocument { snapshot, error in
+          guard let tweet = try? snapshot?.data(as: Tweet.self), error == nil else {
+            return
+          }
+          
+          tweets.append(tweet)
+          completion(tweets)
+        }
+      }
+    }
   }
 }
