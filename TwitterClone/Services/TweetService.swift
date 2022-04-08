@@ -68,4 +68,85 @@ final class TweetService {
         completion(tweets)
       }
   }
+  
+  /// liked tweet IDs will be stored in the logged in user as a sub-collection
+  /// update the like count on the tweet
+  func likeTweet(_ tweet: Tweet, completion: @escaping (_ success: Bool) -> Void) {
+    guard let uid = Auth.auth().currentUser?.uid,
+          let tweetID = tweet.id else {
+      completion(false)
+      return
+    }
+    
+    // create new ref if it doesnt exist
+    let userLikesRef = Firestore.firestore().collection("users").document(uid).collection("user-likes")
+    
+    // increase the like count
+    let likeCountData = ["likes": tweet.likes + 1]
+    Firestore.firestore().collection("tweets").document(tweetID).updateData(likeCountData) { error in
+      guard error == nil else {
+        completion(false)
+        return
+      }
+      
+      // update the current users liked tweets collection
+      userLikesRef.document(tweetID).setData([:]) { error in
+        guard error == nil else { return }
+        
+        completion(true)
+      }
+    }
+  }
+  
+  func unLikeTweet(_ tweet: Tweet, completion: @escaping (_ success: Bool) -> Void) {
+    guard let uid = Auth.auth().currentUser?.uid,
+          let tweetID = tweet.id,
+          tweet.likes > 0 else {
+      completion(false)
+      return
+    }
+    
+    // we will delete the document from the user ref
+    let userLikesRef = Firestore.firestore().collection("users").document(uid).collection("user-likes")
+    
+    // decrease the like count
+    let likeCountData = ["likes": tweet.likes - 1]
+    Firestore.firestore().collection("tweets").document(tweetID).updateData(likeCountData) { error in
+      guard error == nil else {
+        completion(false)
+        return
+      }
+      
+      // delete the document from the user's likes collection
+      userLikesRef.document(tweetID).delete { error in
+        guard error == nil else {
+          completion(false)
+          return
+        }
+        
+        completion(true)
+      }
+    }
+  }
+  
+  func checkIfUserLikedTweet(_ tweet: Tweet, completion: @escaping (_ didLike: Bool) -> Void) {
+    guard let uid = Auth.auth().currentUser?.uid,
+          let tweetID = tweet.id else {
+      completion(false)
+      return
+    }
+    
+    Firestore.firestore().collection("users")
+      .document(uid)
+      .collection("user-likes")
+      .document(tweetID)
+      .getDocument { snapshot, error in
+        guard let snapshot = snapshot, error == nil else {
+          completion(false)
+          return
+        }
+        
+        completion(snapshot.exists)
+      }
+  }
 }
